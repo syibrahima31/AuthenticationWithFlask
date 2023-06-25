@@ -17,6 +17,17 @@
 <body>
 
 <div class="container">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    <div class="flash-messages">
+        {% for category, message in messages %}
+        <div class="alert alert-{{category}}" role="alert">{{ message }}</div>
+        {% endfor %}
+
+    </div>
+    {% endif %}
+    {% endwith %}
+
     <div class="row">
         <div class="col-md-6">
             <!-- Pills navs -->
@@ -35,7 +46,7 @@
             <!-- Pills content -->
             <div class="tab-content">
                 <div class="tab-pane fade show active" id="pills-login" role="tabpanel" aria-labelledby="tab-login">
-                    <form action="/login" method="POST" >
+                    <form action="/login" method="POST">
                         <div class="text-center mb-6">
                             <p>Sign in with:</p>
                             <button type="button" class="btn btn-link btn-floating mx-1">

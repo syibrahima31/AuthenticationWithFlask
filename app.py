@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, session
+from flask import Flask, render_template, request, redirect, url_for, session, flash, get_flashed_messages
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_sqlalchemy import SQLAlchemy
 from config import Config
@@ -35,14 +35,14 @@ def register():
 
         user = User.query.filter_by(username=username).first()
         if user:
-            print("utilisateur deja sauvegrader")
+            flash("user deja enregistre", "warning")
             return redirect(url_for('index'))
 
         new_user = User(username=username)
         new_user.set_password(password)
         db.session.add(new_user)
         db.session.commit()
-        print("utilisateur enregistré avec succés")
+        flash("user a été bien enregistré", "success")
 
     return redirect(url_for('index'))
 
@@ -69,4 +69,4 @@ def welcome():
 
 
 if __name__ == "__main__":
-    app.run(debug=True, port=5011)
+    app.run(debug=True, port=5012)
